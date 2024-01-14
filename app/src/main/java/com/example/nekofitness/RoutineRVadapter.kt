@@ -19,9 +19,6 @@ class RoutineRVadapter (
         return RoutineViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return items.size
-    }
 
     override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
         holder.apply {
@@ -29,4 +26,8 @@ class RoutineRVadapter (
             routinediff.text = items[position].difficulty
         }
     }
+    override fun getItemCount(): Int {
+        return items.size
+    }
+
 }

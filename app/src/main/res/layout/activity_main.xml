@@ -5,21 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:background="@drawable/logou"
     >
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logou"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.997"
-        android:translationZ="1dp"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bottomnav"
-        app:layout_constraintVertical_bias="1.0"
-        android:alpha="0.5"/>
+
 
     <FrameLayout
         android:id="@+id/fragCont"
@@ -27,10 +16,10 @@
         android:layout_width="match_parent"
         android:translationZ="2dp"
         app:defaultNavHost="true"
-        app:layout_constraintBottom_toBottomOf="@id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="0dp"/>
 
