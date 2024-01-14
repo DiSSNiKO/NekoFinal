@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/routines"
+        android:title="Routines"
+        android:icon="@drawable/routines"/>
+    <item
+        android:id="@+id/addexercise"
+        android:title="Create Exercise"
+        android:icon="@drawable/addexerc"/>
+    <item
+        android:id="@+id/newroutine"
+        android:title="Create Routine"
+        android:icon="@drawable/newrout"/>
+    <item
+        android:id="@+id/stats"
+        android:title="Statistics/Info"
+        android:icon="@drawable/states"/>
+</menu>
