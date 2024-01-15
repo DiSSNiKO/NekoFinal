@@ -45,7 +45,7 @@
                 android:text="Routine name"
                 android:layout_gravity="center"/>
             <EditText
-                android:id="@+id/exercisenameinput"
+                android:id="@+id/newroutinename"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"/>
@@ -55,10 +55,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Choose Exercises" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvfornewroutine"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:maxHeight="200dp"
+                android:layout_height="200dp"
+                >
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/layoutforexercises"
+                android:layout_width="match_parent"
+                />
+            </ScrollView>
+
             <TextView
                 android:textSize="18sp"
                 android:layout_gravity="center"

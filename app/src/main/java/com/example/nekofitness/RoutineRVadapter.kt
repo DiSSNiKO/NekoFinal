@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class RoutineRVadapter (
-    val items : ArrayList<Routines>
+    var items : ArrayList<Routines>
 ) : RecyclerView.Adapter<RoutineRVadapter.RoutineViewHolder>() {
     class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val routinename : TextView = itemView.findViewById(R.id.routinename)

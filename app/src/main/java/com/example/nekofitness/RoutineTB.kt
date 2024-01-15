@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class RoutineTB (
     val name: String,
-    val difficulty: String,
     val duration: String,
     val exercises: String,
     @PrimaryKey(autoGenerate = true)
