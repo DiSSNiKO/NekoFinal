@@ -3,24 +3,21 @@ package com.example.nekofitness
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import org.w3c.dom.Text
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [StatsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class StatsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
+    private lateinit var mDBViewModel: DBViewModel
+    private lateinit var totalroutines:TextView
+    private lateinit var totalupxercises:TextView
+    private lateinit var totallowxercises:TextView
+    private lateinit var totalexercises:TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -29,8 +26,40 @@ class StatsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_stats, container, false)
+        val view = inflater.inflate(R.layout.fragment_stats, container, false)
+        totalroutines = view.findViewById<TextView>(R.id.totalroutines)
+        totalupxercises = view.findViewById<TextView>(R.id.totalupperexercises)
+        totallowxercises = view.findViewById<TextView>(R.id.totallowerexercises)
+        totalexercises = view.findViewById<TextView>(R.id.totalexercises)
+
+        return view
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mDBViewModel = ViewModelProvider(this).get(DBViewModel::class.java)
+        mDBViewModel.getRoutines.observe(viewLifecycleOwner, Observer { routine ->
+            if(routine.size>0){
+                totalroutines.setText(routine.size.toString())
+            }
+        })
+        mDBViewModel.getExercises.observe(viewLifecycleOwner, Observer { exercise ->
+            if(exercise.size>0){
+                totalexercises.setText(exercise.size.toString())
+                var countup = 0
+                var countdown = 0
+                for(i in exercise){
+                    if (i.category.lowercase()=="upper"){
+                        countup++;
+                    }
+                    if(i.category.lowercase()=="lower"){
+                        countdown
+                    }
+                }
+                totalupxercises.setText(countup.toString())
+                totallowxercises.setText(countdown.toString())
+            }
+
+        })
+    }
 }

@@ -35,9 +35,9 @@ class ExerciseAddFragment : Fragment() {
     private fun insertExerciseToDB(upperbody:RadioButton,lowerbody:RadioButton,name:EditText) {
         var category = "emptistring"
         if(upperbody.isChecked){
-            category = "Upper body"
+            category = "upper"
         } else if (lowerbody.isChecked) {
-            category = "Lower body"
+            category = "lower"
         }
         if(category!="emptistring"&&name.text.toString().length>0){
             val exerciserow = ExerciseTB(name.text.toString(), category, 0)
