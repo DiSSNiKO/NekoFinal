@@ -12,16 +12,15 @@ class RoutineRVadapter (
     class RoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val routinename : TextView = itemView.findViewById(R.id.routinename)
         val routinediff : TextView = itemView.findViewById(R.id.routinediff)
+        val routineexercises: TextView = itemView.findViewById(R.id.exerciselist)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RoutineViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.routinesrow, parent, false)
         return RoutineViewHolder(view)
     }
-
-
     override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
         holder.apply {
+            routineexercises.text = items[position].exercises
             routinename.text = items[position].name
             routinediff.text = items[position].duration
         }
@@ -29,5 +28,4 @@ class RoutineRVadapter (
     override fun getItemCount(): Int {
         return items.size
     }
-
 }
