@@ -23,9 +23,9 @@ class RoutineFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var ogo = arrayListOf<Routines>(
-            Routines("8 hour arm workout", "Extreme"),
-            Routines("Crossfit weezy", "Wimp"),
-            Routines("Urban Outdoor", "Medium"),
+            Routines("8 hour arm workout", "Difficult"),
+            Routines("Crossfit weezy", "Light"),
+            Routines("Urban Outdoor", "Light"),
         )
         val routinesAdapter = RoutineRVadapter(ogo)
         val routinesrcview:RecyclerView=view.findViewById(R.id.routinesrcview)

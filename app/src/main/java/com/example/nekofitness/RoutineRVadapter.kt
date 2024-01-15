@@ -23,7 +23,7 @@ class RoutineRVadapter (
     override fun onBindViewHolder(holder: RoutineViewHolder, position: Int) {
         holder.apply {
             routinename.text = items[position].name
-            routinediff.text = items[position].difficulty
+            routinediff.text = items[position].duration
         }
     }
     override fun getItemCount(): Int {

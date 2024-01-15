@@ -2,5 +2,6 @@ package com.example.nekofitness
 
 data class Routines (
     val name : String,
-    val difficulty : String
+    val duration : String,
+    val exercises : String = ""
 )

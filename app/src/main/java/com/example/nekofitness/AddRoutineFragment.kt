@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Button
 import androidx.core.view.get
 import androidx.lifecycle.Observer
@@ -15,13 +16,14 @@ import androidx.recyclerview.widget.RecyclerView
 
 class AddRoutineFragment : Fragment() {
     private lateinit var mDBViewModel: DBViewModel
+    private lateinit var itemAdapter: AddExercRVadapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_routine, container, false)
 
-        val itemAdapter = AddExercRVadapter(arrayListOf<ExerciseChoice>())
+        itemAdapter = AddExercRVadapter(arrayListOf<ExerciseChoice>())
         val routinesrcview: RecyclerView =view.findViewById(R.id.rvfornewroutine)
         routinesrcview.layoutManager = LinearLayoutManager(context)
         routinesrcview.adapter = itemAdapter
