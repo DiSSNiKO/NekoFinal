@@ -1,4 +1,4 @@
-package com.example.nekofitness
+package com.example.nekofitness.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

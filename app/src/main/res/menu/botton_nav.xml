@@ -6,16 +6,21 @@
         android:id="@+id/routines"
         android:title="Routines"
         android:icon="@drawable/routines"/>
-    <item
-        android:id="@+id/addexercise"
-        android:title="Create Exercise"
-        android:icon="@drawable/addexerc"/>
+
     <item
         android:id="@+id/newroutine"
-        android:title="Create Routine"
+        android:title="Add Routine"
         android:icon="@drawable/newrout"/>
     <item
         android:id="@+id/stats"
-        android:title="Statistics/Info"
+        android:title="Profile Info"
         android:icon="@drawable/states"/>
+    <item
+        android:id="@+id/caloriecalculator"
+        android:title="Calorie Cal"
+        android:icon="@drawable/addexerc"/>
+    <item
+        android:id="@+id/yummynavbtn"
+        android:title="Foodie Logs"
+        android:icon="@drawable/addexerc"/>
 </menu>

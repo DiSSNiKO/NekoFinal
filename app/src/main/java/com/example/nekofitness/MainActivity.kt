@@ -3,8 +3,12 @@ package com.example.nekofitness
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import com.example.nekofitness.databinding.ActivityMainBinding
+import com.example.nekofitness.fragments.AddRoutineFragment
+import com.example.nekofitness.fragments.CalorieFragment
+import com.example.nekofitness.fragments.NutritionFragment
+import com.example.nekofitness.fragments.RoutineFragment
+import com.example.nekofitness.fragments.StatsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -18,9 +22,10 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId) {
                 R.id.newroutine -> replaceFragment(AddRoutineFragment())
                 R.id.routines -> replaceFragment(RoutineFragment())
-                R.id.addexercise -> replaceFragment(ExerciseAddFragment())
+                R.id.caloriecalculator -> replaceFragment(CalorieFragment())
                 R.id.stats -> replaceFragment(StatsFragment())
-            else -> {}
+                R.id.nutritionlogfrag -> replaceFragment(NutritionFragment())
+                else -> {}
             }
             true
         }
