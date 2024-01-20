@@ -1,15 +1,15 @@
-package com.example.nekofitness
+package com.example.nekofitness.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import org.w3c.dom.Text
+import com.example.nekofitness.R
+import com.example.nekofitness.database.DBViewModel
 
 
 class StatsFragment : Fragment() {
@@ -31,7 +31,6 @@ class StatsFragment : Fragment() {
         totalupxercises = view.findViewById<TextView>(R.id.totalupperexercises)
         totallowxercises = view.findViewById<TextView>(R.id.totallowerexercises)
         totalexercises = view.findViewById<TextView>(R.id.totalexercises)
-
         return view
     }
 
@@ -42,24 +41,6 @@ class StatsFragment : Fragment() {
             if(routine.size>0){
                 totalroutines.setText(routine.size.toString())
             }
-        })
-        mDBViewModel.getExercises.observe(viewLifecycleOwner, Observer { exercise ->
-            if(exercise.size>0){
-                totalexercises.setText(exercise.size.toString())
-                var countup = 0
-                var countdown = 0
-                for(i in exercise){
-                    if (i.category.lowercase()=="upper"){
-                        countup++;
-                    }
-                    if(i.category.lowercase()=="lower"){
-                        countdown
-                    }
-                }
-                totalupxercises.setText(countup.toString())
-                totallowxercises.setText(countdown.toString())
-            }
-
         })
     }
 }

@@ -1,4 +1,4 @@
-package com.example.nekofitness
+package com.example.nekofitness.database
 
 import android.content.Context
 import androidx.room.Database
@@ -6,16 +6,15 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [RoutineTB::class, ExerciseTB::class],
+    entities = [RoutineTB::class],
     version = 1
 )
 abstract class MainDatabase:RoomDatabase() {
     abstract fun routineDao() : RoutineTBDao
-    abstract fun exerciseDao() : ExerciseTBDao
     companion object {
         @Volatile
         private var INSTANCE : MainDatabase? = null
-        fun getDatabase(context: Context):MainDatabase{
+        fun getDatabase(context: Context): MainDatabase {
             val tempInstance = INSTANCE
             if(tempInstance!=null){
                 return tempInstance
@@ -23,7 +22,7 @@ abstract class MainDatabase:RoomDatabase() {
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    MainDatabase::class.java,
+                MainDatabase::class.java,
                     "main_database"
                 ).build()
                 INSTANCE = instance
