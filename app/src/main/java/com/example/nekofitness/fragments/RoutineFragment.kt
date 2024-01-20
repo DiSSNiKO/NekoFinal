@@ -7,10 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.nekofitness.R
-import com.example.nekofitness.Routines
 import com.example.nekofitness.database.DBViewModel
 
 
@@ -24,11 +21,12 @@ class RoutineFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_routine, container, false)
 
 
-        mDBViewModel = ViewModelProvider(this).get(DBViewModel::class.java)
+        mDBViewModel = ViewModelProvider(this)[DBViewModel::class.java]
         mDBViewModel.getRoutines.observe(viewLifecycleOwner, Observer { routine ->
-            var routinearray = arrayListOf<Routines>()
+//            var routinearray = arrayListOf<Routines>()
         })
         return view
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

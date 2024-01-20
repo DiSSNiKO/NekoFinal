@@ -1,4 +1,4 @@
-package com.example.nekofitness
+package com.example.nekofitness.DataClasses
 
 data class Routines (
     val name : String,
