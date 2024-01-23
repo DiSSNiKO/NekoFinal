@@ -15,6 +15,7 @@
         android:theme="@style/Theme.NekoFitness"
         tools:targetApi="31" >
         <activity
+            android:windowSoftInputMode="adjustPan"
             android:name=".necoArcActivity"
             android:exported="true"
             android:label="@string/title_activity_neco_arc"
@@ -28,6 +29,8 @@
 
         <activity
             android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan"
+
             android:exported="true" >
 
         </activity>

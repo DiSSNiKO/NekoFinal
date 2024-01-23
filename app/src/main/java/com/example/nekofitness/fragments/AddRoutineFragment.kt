@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
@@ -22,16 +21,15 @@ import com.example.nekofitness.database.DBViewModel
 import com.example.nekofitness.database.RoutineTB
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
-
-
 
 
 class AddRoutineFragment : Fragment() {
     private lateinit var mDBViewModel: DBViewModel
     private lateinit var createRoutineBtn: AppCompatButton
+    private lateinit var fetchExers: AppCompatButton
     private lateinit var exerciseSearchInput: EditText
+    private lateinit var scrollviu: LinearLayout
     var exercises: ArrayList<Exercises> = arrayListOf<Exercises>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,36 +37,54 @@ class AddRoutineFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_routine, container, false)
         mDBViewModel = ViewModelProvider(this).get(DBViewModel::class.java)
-
+        scrollviu = view.findViewById(R.id.exercisesScrollView)
+        createRoutineBtn = view.findViewById(R.id.createRoutineBtn)
+        exerciseSearchInput = view.findViewById(R.id.exerciseSearchInput)
+        fetchExers = view.findViewById(R.id.fetchExersBtn)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        createRoutineBtn = view.findViewById(R.id.createRoutineBtn)
-        exerciseSearchInput = view.findViewById(R.id.exerciseSearchInput)
+        fetchExers.setOnClickListener {
+            Toast.makeText(requireContext(),"womp womp", Toast.LENGTH_SHORT).show()
+            fetchExerciseDataAndCreateViews(layoutInflater)
+        }
         createRoutineBtn.setOnClickListener {
-            lifecycleScope.launch {
-                val response = try {
-                    RetrofitInstance.api.fetchExercises(exerciseSearchInput.text.toString())
-                } catch (e:IOException){
-                    Toast.makeText(requireContext(),"Error, check internet connection", Toast.LENGTH_SHORT).show()
-                    return@launch
-                } catch (e: HttpException) {
-                    Toast.makeText(requireContext(),"Bad response", Toast.LENGTH_SHORT).show()
-                    return@launch
-                }
-                println(response.body())
-                if(response.isSuccessful && response.body() != null){
-                    println("Here are yours trulys --> \n")
-                    print(response.body())
-                    Toast.makeText(requireContext(),"nigas", Toast.LENGTH_SHORT).show()
-                    println(exercises)
-                }
-            }
         }
     }
 
     private fun insertRoutineToDB(name: EditText,exercises: String) {
 
     }
+    fun fetchExerciseDataAndCreateViews(inflater: LayoutInflater) {
+         viewLifecycleOwner.lifecycleScope.launch {
+            val response = try {
+                RetrofitInstance.api.fetchExercises(exerciseSearchInput.text.toString().toLowerCase())
+            } catch (e:IOException){
+                Toast.makeText(requireContext(),"Error, check internet connection", Toast.LENGTH_SHORT).show()
+                return@launch
+            } catch (e: HttpException) {
+                Toast.makeText(requireContext(),"Bad response", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
+            println(response.body())
+            if(response.isSuccessful && response.body() != null){
+                println("Here are yours trulys --> \n")
+                exercises = response.body()!!
+                println(exercises)
+                createExerciseViews(inflater)
+            }
+        }
+    }
+        fun createExerciseViews(inflater: LayoutInflater){
+            scrollviu.removeAllViews()
+           for(exercise in exercises){
+               val vviiuu = inflater.inflate(R.layout.exerciseview,scrollviu,false)
+               vviiuu.findViewById<TextView>(R.id.leExerciseNamae).text = exercise.name
+               vviiuu.findViewById<TextView>(R.id.leExerciseType).text = exercise.type
+               vviiuu.findViewById<TextView>(R.id.leExerciseDifficulty).text = exercise.difficulty
+               scrollviu.addView(vviiuu)
+           }
+        }
 }
+
