@@ -9,11 +9,9 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.nekofitness.R
-import com.example.nekofitness.database.DBViewModel
 
 
 class StatsFragment : Fragment() {
-    private lateinit var mDBViewModel: DBViewModel
     private lateinit var totalroutines:TextView
     private lateinit var totalupxercises:TextView
     private lateinit var totallowxercises:TextView
@@ -36,11 +34,5 @@ class StatsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mDBViewModel = ViewModelProvider(this).get(DBViewModel::class.java)
-        mDBViewModel.getRoutines.observe(viewLifecycleOwner, Observer { routine ->
-            if(routine.size>0){
-                totalroutines.setText(routine.size.toString())
-            }
-        })
     }
 }

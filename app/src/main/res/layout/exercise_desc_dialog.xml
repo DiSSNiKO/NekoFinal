@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:textAlignment="center"
+            android:fontFamily="@font/nunito_black"
+            android:textSize="28sp"
+            android:id="@+id/exerciseDialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:id="@+id/exerciseDialogInstructionsScroll"
+            android:layout_marginTop="10dp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseDialogTitle">
+            <TextView
+                android:textSize="12sp"
+                android:textColor="#526D87"
+                android:id="@+id/exerciseDialogInstructions"
+                android:layout_width="300dp"
+                android:paddingHorizontal="10dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:text="TextView" />
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseDialogInstructionsScroll"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/closeExerDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CLOSE"
+                android:textSize="18sp"
+                android:layout_marginEnd="5dp"
+                app:cornerRadius="5dp"
+                android:padding="0dp"
+                android:backgroundTint="#ff9d9d"
+                android:fontFamily="@font/nunito"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/addExerDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#86b07f"
+                android:textSize="18sp"
+                android:layout_marginStart="5dp"
+                app:cornerRadius="5dp"
+                android:padding="0dp"
+                android:fontFamily="@font/nunito"
+                android:text="ADD" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

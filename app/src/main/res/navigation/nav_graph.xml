@@ -3,26 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
-
+    app:startDestination="@id/nekoArcFragment">
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.nekofitness.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
+        android:id="@+id/viewPagerFragment"
+        android:name="com.example.nekofitness.fragments.ViewPagerFragment"
+        android:label="fragment_view_pager"
+        tools:layout="@layout/fragment_view_pager" />
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.nekofitness.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
-
+        android:id="@+id/nekoArcFragment"
+        android:name="com.example.nekofitness.fragments.NekoArcFragment"
+        android:label="fragment_neko_arc"
+        tools:layout="@layout/fragment_neko_arc" >
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_nekoArcFragment_to_viewPagerFragment"
+            app:destination="@id/viewPagerFragment" />
     </fragment>
 </navigation>
