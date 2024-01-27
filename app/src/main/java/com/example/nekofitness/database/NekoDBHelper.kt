@@ -44,7 +44,23 @@ class NekoDBHelper(context:Context) : SQLiteOpenHelper(context,DB_NAME,null,DB_V
         cursor.close()
         return routineArray
     }
-
+    @SuppressLint("Range")
+    fun getSpecificRoutine(routineNamae: String?) : Routines{
+        val routineArray = arrayListOf<Routines>()
+        val db = readableDatabase
+        val cursor  = db.rawQuery("SELECT * FROM $ROUTINE_TABLE WHERE $ROUTINE_NAME = '$routineNamae'",null)
+        if(cursor!=null){
+            if(cursor.moveToFirst()){
+                do {
+                    routineArray.add(
+                        Routines(cursor.getString(cursor.getColumnIndex(ROUTINE_NAME)),cursor.getString(cursor.getColumnIndex(ROUTINE_EXERCISES)))
+                    )
+                }while(cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        return routineArray[0]
+    }
     fun addRoutine(routine:Routines) {
         val db = writableDatabase
         val values = ContentValues()
@@ -52,5 +68,11 @@ class NekoDBHelper(context:Context) : SQLiteOpenHelper(context,DB_NAME,null,DB_V
         values.put(ROUTINE_EXERCISES, routine.exercises)
         db.insert(ROUTINE_TABLE, null, values)
         db.close()
+    }
+
+    fun clearRoutines(){
+        val db = writableDatabase
+        db.delete(ROUTINE_TABLE, null, null)
+        db.close();
     }
 }

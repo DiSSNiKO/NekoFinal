@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.nekofitness.DataClasses.Exercises
@@ -19,6 +20,7 @@ import com.example.nekofitness.DataClasses.Routines
 import com.example.nekofitness.R
 import com.example.nekofitness.RetrofitAPI.RetrofitInstance
 import com.example.nekofitness.database.NekoDBHelper
+import com.example.nekofitness.viewModels.RoutineViewModel
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
@@ -42,6 +44,7 @@ class AddRoutineFragment : Fragment() {
     private lateinit var chosendialogTitle: TextView
     private lateinit var chosenExercisesTextview: TextView
     private lateinit var chosenExercisesCheck: MaterialButton
+    private val routineViewModel: RoutineViewModel by activityViewModels()
     private var fetchedExercises: ArrayList<Exercises> = arrayListOf<Exercises>()
     var chosenExercises: ArrayList<Exercises> = arrayListOf<Exercises>()
     override fun onCreateView(
@@ -50,7 +53,6 @@ class AddRoutineFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add_routine, container, false)
         createViews(view) //creates all fragment specific views
-
         return view
     }
 
@@ -131,7 +133,7 @@ class AddRoutineFragment : Fragment() {
             } else if (exername!="nondefined"){
                 Toast.makeText(requireContext(), "Exercise already chosen in given instance!", Toast.LENGTH_SHORT).show()
             } else if (uniqueexercises>8){
-                Toast.makeText(requireContext(), "Exercise limit per routine is 8!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Exercise amount should not exceed 8!", Toast.LENGTH_SHORT).show()
             }
         }
         //Chosen exercise dialog
@@ -154,9 +156,12 @@ class AddRoutineFragment : Fragment() {
         val routineExercises = Json.encodeToString(chosenExercises)
         val routineName = routineNameInp.text.toString()
         db.addRoutine(Routines(routineName,routineExercises))
+        val getRoutine = db.getRoutines()
+        routineViewModel.updateDataList(getRoutine)
         routineNameInp.clearFocus()
         routineNameInp.setText("")
         chosenExercises = arrayListOf<Exercises>()
+        chosenExercisesTextview.text = ""
     }
     fun fetchExerciseDataAndCreateViews(inflater: LayoutInflater) {
          viewLifecycleOwner.lifecycleScope.launch {
@@ -191,9 +196,6 @@ class AddRoutineFragment : Fragment() {
            }
            scrollviu.addView(vviiuu)
        }
-    }
-    fun createExerciseDialog(){
-
     }
 }
 

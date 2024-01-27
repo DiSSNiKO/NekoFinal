@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/round_auto_awesome_24"
+        android:id="@+id/menu_routine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Routines" />
+    <item
+        android:icon="@drawable/round_auto_awesome_24"
+        android:id="@+id/menu_addRoutine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Add Routine" />
+    <item
+        android:icon="@drawable/round_auto_awesome_24"
+        android:id="@+id/menu_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Stats/Info" />
+    <item
+        android:icon="@drawable/round_auto_awesome_24"
+        android:id="@+id/menu_calories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Calorie Calc" />
+    <item
+        android:icon="@drawable/round_auto_awesome_24"
+        android:id="@+id/menu_foodielogs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="Foodie Logs" />
+</menu>
