@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="25dp">
+
+        <TextView
+            android:textAlignment="center"
+            android:fontFamily="@font/nunito_black"
+            android:textSize="22sp"
+            android:id="@+id/areUSure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="This action will delete all logs!"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/areUSure"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/confirmDeletion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DELETE"
+                android:textSize="18sp"
+                android:layout_marginEnd="25dp"
+                app:cornerRadius="5dp"
+                android:padding="0dp"
+                android:backgroundTint="#ff9d9d"
+                android:fontFamily="@font/nunito"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exitDeletion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CLOSE"
+                android:textSize="18sp"
+                app:cornerRadius="5dp"
+                android:padding="0dp"
+                android:backgroundTint="#86b07f"
+                android:fontFamily="@font/nunito"/>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

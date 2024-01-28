@@ -25,10 +25,7 @@ class StatsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_stats, container, false)
-        totalroutines = view.findViewById<TextView>(R.id.totalroutines)
-        totalupxercises = view.findViewById<TextView>(R.id.totalupperexercises)
-        totallowxercises = view.findViewById<TextView>(R.id.totallowerexercises)
-        totalexercises = view.findViewById<TextView>(R.id.totalexercises)
+
         return view
     }
 

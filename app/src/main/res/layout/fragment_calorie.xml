@@ -3,16 +3,243 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@drawable/bg_view_green_pastel"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.CalorieFragment">
 
     <TextView
+        android:id="@+id/calorieFragTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito_bold"
+        android:text="Nutrition Calculator"
+        android:textColor="#485B20"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/pink"
-        android:textSize="25sp"/>
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_marginTop="25dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/calorieFragTitle"
+        app:layout_constraintEnd_toEndOf="parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Log your daily calories"
+            android:textAlignment="center"
+            android:textColor="#485B20"
+            android:textSize="20sp"/>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/searchCard"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <EditText
+                    android:id="@+id/foodSearchInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:hint="450g burger"
+                    android:background="@android:color/transparent"/>
+
+                <ImageView
+                    android:id="@+id/searchIcon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/search"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="16dp"/>
+
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/fetchFoodBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#485B20"
+                android:fontFamily="@font/nunito_bold"
+                android:padding="12dp"
+                android:text="Add log"
+                android:textSize="16sp"
+                app:cornerRadius="10dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteTempLogs"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginBottom="10dp"
+                android:backgroundTint="#ff4040"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Delete logs"
+                android:textSize="16sp"
+                app:cornerRadius="10dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            app:cardElevation="15dp"
+            android:layout_height="195dp">
+            <LinearLayout
+                android:id="@+id/dailyFoodScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito_bold"
+            android:text="Daily total:"
+            android:textAlignment="textStart"
+            android:paddingHorizontal="25dp"
+            android:textColor="#485B20"
+            android:textSize="22sp"/>
+            <TextView
+                android:id="@+id/totalDailyCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="25dp"
+                android:textColor="#485B20"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/totalDailyProtein"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="25dp"
+                android:textColor="#485B20"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/totalDailyFats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="25dp"
+                android:textColor="#485B20"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/totalDailyCarbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="25dp"
+                android:textColor="#485B20"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:id="@+id/totalDailyFiber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:textAlignment="textStart"
+                android:paddingHorizontal="25dp"
+                android:textColor="#485B20"
+                android:textSize="18sp"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/nunito_bold"
+                android:text="Approximate percentage :"/>
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="6">
+                <TextView
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="Protein: "/>
+                <TextView
+                    android:id="@+id/proteinPercentage"
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:text="Fats: "/>
+                <TextView
+                    android:id="@+id/fatPercentage"
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:text="Carbs: "/>
+                <TextView
+                    android:id="@+id/carbPercentage"
+                    android:fontFamily="@font/nunito_bold"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

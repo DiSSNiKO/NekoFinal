@@ -30,7 +30,7 @@
         android:orientation="vertical">
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="320dp">
+            android:layout_height="500dp">
             <LinearLayout
                 android:id="@+id/routineDetailedLayoutScroll"
                 android:layout_width="match_parent"
@@ -41,24 +41,5 @@
         </ScrollView>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/routineDetailedLayout">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:textSize="25sp"
-            android:text="Choose number of sets"
-            android:layout_marginTop="25dp"
-            android:fontFamily="@font/nunito_bold"
-            android:textAlignment="center"
-            />
 
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
