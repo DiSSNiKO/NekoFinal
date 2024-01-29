@@ -6,7 +6,6 @@ plugins {
     kotlin("plugin.serialization") version "1.9.22"
 }
 android {
-
     namespace = "com.example.nekofitness"
     compileSdk = 34
 
