@@ -29,7 +29,7 @@ class RoutineFragment : Fragment(), clickListening {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_routine, container, false)
-        recyclerView = view.findViewById<RecyclerView>(R.id.clickableRoutineRV)
+        recyclerView = view.findViewById(R.id.clickableRoutineRV)
         deleteBtn = view.findViewById(R.id.deleteAllRoutines)
         db = NekoDBHelper(requireContext())
         routineList = db.getRoutines()

@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.nekofitness.DataClasses.Exercises
 import com.example.nekofitness.DataClasses.Routines
@@ -27,6 +26,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import retrofit2.HttpException
 import java.io.IOException
+
 class AddRoutineFragment : Fragment() {
     private lateinit var  db : NekoDBHelper
     private lateinit var createRoutineBtn: MaterialButton

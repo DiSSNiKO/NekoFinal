@@ -1,7 +1,9 @@
 package com.example.nekofitness.fragments
 
 import android.app.Dialog
-import android.health.connect.datatypes.units.Percentage
+import android.content.Intent
+import android.content.IntentFilter
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,13 +13,14 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.ui.text.capitalize
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.nekofitness.DataClasses.FoodMacros
 import com.example.nekofitness.R
 import com.example.nekofitness.RetrofitAPI.RetrofitInstance
+import com.example.nekofitness.broadCastRecievers.DateChangeReceiver
 import com.example.nekofitness.database.NekoDBHelper
 import com.example.nekofitness.viewModels.NutritionViewModel
 import com.google.android.material.button.MaterialButton
@@ -28,6 +31,7 @@ import java.lang.Error
 
 
 class CalorieFragment : Fragment() {
+    private val dateChangeReceiver = DateChangeReceiver()
     private lateinit var foodSearchInput: EditText
     private lateinit var fetchFoodBtn: MaterialButton
     private lateinit var dailyFoodScrollView:LinearLayout
@@ -53,6 +57,7 @@ class CalorieFragment : Fragment() {
         db = NekoDBHelper(requireContext())
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -207,6 +212,8 @@ class CalorieFragment : Fragment() {
             deleteLogsDialog.dismiss()
             dailyFoodScrollView.removeAllViews()
         }
+
+
 
     }
 }

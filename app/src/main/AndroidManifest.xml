@@ -14,8 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NekoFitness"
         tools:targetApi="31" >
-
-
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan"
@@ -26,6 +24,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 

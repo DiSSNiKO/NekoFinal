@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.example.nekofitness.DataClasses.ArchiveFoodMacros
 import com.example.nekofitness.DataClasses.FoodMacros
 import com.example.nekofitness.DataClasses.Routines
 
@@ -30,21 +31,82 @@ class NekoDBHelper(context:Context) : SQLiteOpenHelper(context,DB_NAME,null,DB_V
         private val TEMP_MACRO_CARBS= "carbs"
 
         //Archive macro log table
+        private val ARC_MACRO_TABLE = "macros_archive"
+        private val ARC_MACRO_ID = "id"
+        private val ARC_MACRO_NAME = "name"
+        private val ARC_MACRO_CALORIES = "calories"
+        private val ARC_MACRO_FIBER = "fiber"
+        private val ARC_MACRO_PROTEIN = "protein"
+        private val ARC_MACRO_FATS = "fats"
+        private val ARC_MACRO_CARBS= "carbs"
+        private val ARC_MACRO_DATE = "run_date"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_ROUTINE_TABLE = "CREATE TABLE $ROUTINE_TABLE ($ROUTINE_ID INTEGER PRIMARY KEY, $ROUTINE_NAME TEXT, $ROUTINE_EXERCISES TEXT)"
         val CREATE_TEMP_MACRO = "CREATE TABLE $TEMP_MACRO_TABLE ($TEMP_MACRO_ID INTEGER PRIMARY KEY, $TEMP_MACRO_NAME TEXT, $TEMP_MACRO_CALORIES TEXT, $TEMP_MACRO_PROTEIN TEXT, $TEMP_MACRO_FATS TEXT, $TEMP_MACRO_FIBER TEXT, $TEMP_MACRO_CARBS TEXT)"
+        val CREATE_ARC_MACRO = "CREATE TABLE $ARC_MACRO_TABLE ($ARC_MACRO_ID INTEGER PRIMARY KEY, $ARC_MACRO_NAME TEXT, $ARC_MACRO_CALORIES TEXT, $ARC_MACRO_PROTEIN TEXT, $ARC_MACRO_FATS TEXT, $ARC_MACRO_FIBER TEXT, $ARC_MACRO_CARBS TEXT, $ARC_MACRO_DATE TEXT)"
         db?.execSQL(CREATE_ROUTINE_TABLE)
         db?.execSQL(CREATE_TEMP_MACRO)
+        db?.execSQL(CREATE_ARC_MACRO)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         val DROP_TABLE_ROUTINE = "DROP TABLE IF EXISTS $ROUTINE_TABLE"
         val DROP_TABLE_TEMP_MACROS = "DROP TABLE IF EXISTS $TEMP_MACRO_TABLE"
+        val DROP_TABLE_ARC_MACROS = "DROP TABLE IF EXISTS $ARC_MACRO_TABLE"
+
         db?.execSQL(DROP_TABLE_ROUTINE)
         db?.execSQL(DROP_TABLE_TEMP_MACROS)
+        db?.execSQL(DROP_TABLE_ARC_MACROS)
         onCreate(db)
+    }
+
+
+    @SuppressLint("Range")
+    fun getArcMacros() : ArrayList<ArchiveFoodMacros>{
+        val foodMacroArr = arrayListOf<ArchiveFoodMacros>()
+        val db = readableDatabase
+        val cursor  = db.rawQuery("SELECT * FROM $ARC_MACRO_TABLE",null)
+        if(cursor!=null){
+            if(cursor.moveToFirst()){
+                do {
+                    var ArchiveFoodMacro = ArchiveFoodMacros(
+                        name_and_amount = cursor.getString(cursor.getColumnIndex(ARC_MACRO_NAME)),
+                        calories = cursor.getString(cursor.getColumnIndex(ARC_MACRO_CALORIES)),
+                        protein_g = cursor.getString(cursor.getColumnIndex(ARC_MACRO_PROTEIN)),
+                        carbohydrates_total_g = cursor.getString(cursor.getColumnIndex(ARC_MACRO_CARBS)),
+                        fat_total_g = cursor.getString(cursor.getColumnIndex(ARC_MACRO_FATS)),
+                        fiber_g = cursor.getString(cursor.getColumnIndex(ARC_MACRO_FIBER)),
+                        addDate = cursor.getString(cursor.getColumnIndex(ARC_MACRO_DATE))
+                    )
+                    foodMacroArr.add(
+                        ArchiveFoodMacro
+                    )
+                }while(cursor.moveToNext())
+            }
+        }
+        cursor.close()
+        return foodMacroArr
+    }
+    fun addArcMacroLog(foodMacro:ArchiveFoodMacros) {
+        val db = writableDatabase
+        val values = ContentValues()
+        values.put(ARC_MACRO_NAME, foodMacro.name_and_amount)
+        values.put(ARC_MACRO_CALORIES, foodMacro.calories)
+        values.put(ARC_MACRO_PROTEIN, foodMacro.protein_g)
+        values.put(ARC_MACRO_FATS, foodMacro.fat_total_g)
+        values.put(ARC_MACRO_FIBER, foodMacro.fiber_g)
+        values.put(ARC_MACRO_CARBS, foodMacro.carbohydrates_total_g)
+        values.put(ARC_MACRO_DATE, foodMacro.addDate)
+        db.insert(ARC_MACRO_TABLE, null, values)
+        db.close()
+    }
+
+    fun clearArcFoodLogs(){
+        val db = writableDatabase
+        db.delete(ARC_MACRO_TABLE, null, null)
+        db.close();
     }
     @SuppressLint("Range")
     fun getRoutines() : ArrayList<Routines>{
