@@ -21,8 +21,9 @@
         android:text="Macronutrient log archive"/>
 
     <ScrollView
+        android:id="@+id/aidiee"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="450dp"
         android:layout_marginTop="50dp"
         app:layout_constraintTop_toBottomOf="@+id/macroArchiveTitle"
         >
@@ -32,4 +33,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deletee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#ff4040"
+        android:fontFamily="@font/nunito_bold"
+        android:text="DELETE ARCHIVE"
+        android:textSize="18sp"
+        app:cornerRadius="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.578"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aidiee" />
 </androidx.constraintlayout.widget.ConstraintLayout>

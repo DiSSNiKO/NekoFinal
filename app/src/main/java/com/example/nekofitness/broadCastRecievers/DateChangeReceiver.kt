@@ -57,6 +57,5 @@ class DateChangeReceiver: BroadcastReceiver() {
             println(db.getArcMacros())
             db.clearTempFoodLogs()
         }
-
     }
 }

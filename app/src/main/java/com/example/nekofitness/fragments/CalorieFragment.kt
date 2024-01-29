@@ -17,21 +17,23 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.example.nekofitness.DataClasses.ArchiveFoodMacros
 import com.example.nekofitness.DataClasses.FoodMacros
 import com.example.nekofitness.R
 import com.example.nekofitness.RetrofitAPI.RetrofitInstance
 import com.example.nekofitness.broadCastRecievers.DateChangeReceiver
 import com.example.nekofitness.database.NekoDBHelper
+import com.example.nekofitness.viewModels.ArchiveNutritionViewModel
 import com.example.nekofitness.viewModels.NutritionViewModel
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Error
+import java.time.LocalDate
 
 
 class CalorieFragment : Fragment() {
-    private val dateChangeReceiver = DateChangeReceiver()
     private lateinit var foodSearchInput: EditText
     private lateinit var fetchFoodBtn: MaterialButton
     private lateinit var dailyFoodScrollView:LinearLayout
@@ -49,7 +51,11 @@ class CalorieFragment : Fragment() {
     private lateinit var exitDialog: MaterialButton
     private lateinit var confirmDelete: MaterialButton
     private lateinit var deleteTempLogs: MaterialButton
+    private lateinit var archaivbtn: MaterialButton
     private val NutritionViewModel: NutritionViewModel by activityViewModels()
+    private val arcNutritionViewModel: ArchiveNutritionViewModel by activityViewModels()
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +73,7 @@ class CalorieFragment : Fragment() {
         fetchFoodBtn = view.findViewById(R.id.fetchFoodBtn)
         dailyFoodScrollView = view.findViewById(R.id.dailyFoodScrollView)
         chosenDinner = FoodMacros()
+        archaivbtn = view.findViewById(R.id.createArchive)
         totalDailyCalories = view.findViewById(R.id.totalDailyCalories)
         totalDailyCarbs = view.findViewById(R.id.totalDailyCarbs)
         totalDailyFats = view.findViewById(R.id.totalDailyFats)
@@ -82,6 +89,9 @@ class CalorieFragment : Fragment() {
         }
         deleteTempLogs.setOnClickListener {
             deleteLogsDialog.show()
+        }
+        archaivbtn.setOnClickListener {
+            createDayArchive(db.getTempMacros())
         }
         return view
     }
@@ -215,5 +225,45 @@ class CalorieFragment : Fragment() {
 
 
 
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun createDayArchive(logs:ArrayList<FoodMacros>){
+        if(logs.size>0){
+            var totalCal = 0
+            var totalCila = 0
+            var totalBochko = 0
+            var totalCximi = 0
+            var totalNaxshirWyali = 0
+            var foods = ""
+            for (log in logs){
+                totalCal+=log.calories.toFloat().toInt()
+                totalBochko+=log.fiber_g.toFloat().toInt()
+                totalCila+=log.protein_g.toFloat().toInt()
+                totalCximi+=log.fat_total_g.toFloat().toInt()
+                totalNaxshirWyali+=log.carbohydrates_total_g.toFloat().toInt()
+                foods+=log.name_and_amount+", "
+            }
+            foods = foods.trim()
+            var foods2 = ""
+            val ew = foods.length
+            var weSayNoToTheExtraComma = 0
+            while(weSayNoToTheExtraComma<ew-1){
+                foods2+=foods[weSayNoToTheExtraComma]
+                weSayNoToTheExtraComma++
+            }
+            val nowDate = LocalDate.now()
+            val archiveMacro = ArchiveFoodMacros(foods2,totalCal.toString()+"KCal",
+                totalCximi.toString()+"g",
+                totalCila.toString()+"g",
+                totalNaxshirWyali.toString()+"g",
+                totalBochko.toString()+"g",
+                nowDate.toString()
+            )
+            db.addArcMacroLog(archiveMacro)
+            db.clearTempFoodLogs()
+            NutritionViewModel.updateDataList(db.getTempMacros())
+            arcNutritionViewModel.updateDataList(db.getArcMacros())
+            dailyFoodScrollView.removeAllViews()
+        }
     }
 }

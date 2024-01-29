@@ -1,10 +1,12 @@
 package com.example.nekofitness.fragments
 
+import android.app.Dialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,10 @@ class RoutineFragment : Fragment(), clickListening {
     private lateinit var db: NekoDBHelper
     private lateinit var routineList: ArrayList<Routines>
     private lateinit var deleteBtn: MaterialButton
+    private lateinit var adapter:RoutineClickablesAdapter
+    private lateinit var deleteLogsDialog: Dialog
+    private lateinit var exitDialog: MaterialButton
+    private lateinit var confirmDelete: MaterialButton
     private val routineViewModel: RoutineViewModel by activityViewModels()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,13 +47,12 @@ class RoutineFragment : Fragment(), clickListening {
         super.onViewCreated(view, savedInstanceState)
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
+        dialogShenanigans()
         println(routineList)
-        val adapter = RoutineClickablesAdapter(routineList, this)
+        adapter = RoutineClickablesAdapter(routineList, this)
         recyclerView.adapter = adapter
         deleteBtn.setOnClickListener {
-            db.clearRoutines()
-            routineList.clear()
-            adapter.notifyDataSetChanged()
+            deleteLogsDialog.show()
         }
         routineViewModel.dataList.observe(viewLifecycleOwner, { newDataList ->
             val newRoutineList =  db.getRoutines()
@@ -70,4 +75,33 @@ class RoutineFragment : Fragment(), clickListening {
         fragmentTransaction.commit()
     }
 
+    fun dialogShenanigans() {
+        deleteLogsDialog = Dialog(requireContext())
+        deleteLogsDialog.setContentView(R.layout.log_deletion_dialog)
+        deleteLogsDialog.window?.setLayout(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        deleteLogsDialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.dialogbackground
+            )
+        )
+        deleteLogsDialog.setCancelable(false)
+
+        exitDialog = deleteLogsDialog.findViewById(R.id.exitDeletion)
+        confirmDelete = deleteLogsDialog.findViewById(R.id.confirmDeletion)
+
+        exitDialog.setOnClickListener {
+            deleteLogsDialog.dismiss()
+        }
+
+        confirmDelete.setOnClickListener {
+            db.clearRoutines()
+            routineList.clear()
+            adapter.notifyDataSetChanged()
+            deleteLogsDialog.dismiss()
+        }
+    }
 }

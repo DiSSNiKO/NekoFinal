@@ -58,7 +58,6 @@ class AddRoutineFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         fetchExers.setOnClickListener {
-            Toast.makeText(requireContext(),"womp womp", Toast.LENGTH_SHORT).show()
             fetchExerciseDataAndCreateViews(layoutInflater)
         }
         createRoutineBtn.setOnClickListener {
@@ -174,7 +173,6 @@ class AddRoutineFragment : Fragment() {
                 Toast.makeText(requireContext(),"Bad response", Toast.LENGTH_SHORT).show()
                 return@launch
             }
-            println(response.body())
             if(response.isSuccessful && response.body() != null){
                 fetchedExercises = response.body()!!
                 createExerciseViews(inflater)
