@@ -152,15 +152,19 @@ class AddRoutineFragment : Fragment() {
     }
 
     private fun insertRoutineToDB() {
-        val routineExercises = Json.encodeToString(chosenExercises)
-        val routineName = routineNameInp.text.toString()
-        db.addRoutine(Routines(routineName,routineExercises))
-        val getRoutine = db.getRoutines()
-        routineViewModel.updateDataList(getRoutine)
-        routineNameInp.clearFocus()
-        routineNameInp.setText("")
-        chosenExercises = arrayListOf<Exercises>()
-        chosenExercisesTextview.text = ""
+        if(routineNameInp.text.toString()!=""&&chosenExercises.size>0){
+            val routineExercises = Json.encodeToString(chosenExercises)
+            val routineName = routineNameInp.text.toString()
+            db.addRoutine(Routines(routineName,routineExercises))
+            val getRoutine = db.getRoutines()
+            routineViewModel.updateDataList(getRoutine)
+            routineNameInp.clearFocus()
+            routineNameInp.setText("")
+            chosenExercises = arrayListOf<Exercises>()
+            chosenExercisesTextview.text = ""
+        } else {
+            Toast.makeText(requireContext(), "No name provided or exercises not chosen!", Toast.LENGTH_SHORT).show()
+        }
     }
     fun fetchExerciseDataAndCreateViews(inflater: LayoutInflater) {
          viewLifecycleOwner.lifecycleScope.launch {
